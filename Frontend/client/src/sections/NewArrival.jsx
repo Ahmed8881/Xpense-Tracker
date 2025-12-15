@@ -6,229 +6,190 @@ const Section = styled.section`
   min-height: 100vh;
   width: 100%;
   margin: 0 auto;
-  height: 60vh;
-
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding: 4rem 2rem;
   justify-content: center;
   align-items: center;
-
   position: relative;
-  /* background-color: ${(props) => props.theme.text}; */
+  background: linear-gradient(135deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.02) 100%);
 `;
 
 const Title = styled(motion.h1)`
   font-size: ${(props) => props.theme.fontxxxl};
   font-family: "Kaushan Script";
   font-weight: 300;
-  /* text-transform: capitalize; */
   color: ${(props) => props.theme.body};
-  text-shadow: 1px 1px 1px ${(props) => props.theme.text};
-
-  position: absolute;
-  top: 2rem;
-  left: 1rem;
-  z-index: 15;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 3rem;
+  text-align: center;
 
   @media (max-width: 64em) {
     font-size: ${(props) => props.theme.fontxxl};
-    top: 4rem;
   }
   @media (max-width: 48em) {
     font-size: ${(props) => props.theme.fontxl};
   }
 `;
 
-const Item = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 5rem 0;
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 
-  h2 {
-    cursor: pointer;
-  }
-
-  img {
-    width: 100%;
-    height: auto;
-    z-index: 5;
+  @media (max-width: 48em) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 `;
-const Photos = ({ img, name }) => {
-  return (
-    <Item>
-      <img width="400" height="600" src={img} alt={name} />
-      <h2>{name}</h2>
-    </Item>
-  );
-};
+
+const Card = styled(motion.div)`
+  background: linear-gradient(135deg, ${(props) => props.gradient1}, ${(props) => props.gradient2});
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    transform: rotate(45deg);
+  }
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  }
+`;
+
+const IconWrapper = styled.div`
+  width: 70px;
+  height: 70px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+`;
+
+const CardTitle = styled.h3`
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 1rem;
+  font-family: "Kaushan Script";
+`;
+
+const CardDescription = styled.p`
+  font-size: 1rem;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.6;
+`;
+
+const features = [
+  {
+    title: "Smart Tracking",
+    description: "Track your expenses automatically with AI-powered categorization and insights.",
+    gradient1: "#667eea",
+    gradient2: "#764ba2",
+    icon: "💰"
+  },
+  {
+    title: "Real-time Analytics",
+    description: "Get instant insights into your spending patterns with beautiful visualizations.",
+    gradient1: "#f093fb",
+    gradient2: "#f5576c",
+    icon: "📊"
+  },
+  {
+    title: "Budget Goals",
+    description: "Set and achieve your financial goals with intelligent budget recommendations.",
+    gradient1: "#4facfe",
+    gradient2: "#00f2fe",
+    icon: "🎯"
+  },
+  {
+    title: "Secure & Private",
+    description: "Your data is encrypted and protected with bank-level security measures.",
+    gradient1: "#43e97b",
+    gradient2: "#38f9d7",
+    icon: "🔒"
+  },
+  {
+    title: "Multi-Platform",
+    description: "Access your finances anywhere, anytime on mobile, tablet, or desktop.",
+    gradient1: "#fa709a",
+    gradient2: "#fee140",
+    icon: "📱"
+  },
+  {
+    title: "Smart Alerts",
+    description: "Never miss a payment with intelligent notifications and reminders.",
+    gradient1: "#30cfd0",
+    gradient2: "#330867",
+    icon: "🔔"
+  }
+];
 
 const NewArrival = () => {
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    })
+  };
+
   return (
-    <Section className="new-arrival">
+    <Section className="features-section">
       <Title
-        data-scroll
-        data-scroll-speed="-2"
-        data-scroll-direction="horizontal"
+        initial={{ opacity: 0, y: -50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
       >
-        Team
+        Powerful Features
       </Title>
 
-      <div className="flex  relative space-x-4 justify-center items-center w-full">
-        <div class="group">
-          <button>
-            <svg
-              class="w-32 aspect-square rounded-full hover:scale-125 duration-200 hover:stroke-blue-500"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 64 64"
-            >
-              <path
-                data-name="layer1"
-                d="M 50.4 51 C 40.5 49.1 40 46 40 44 v -1.2 a 18.9 18.9 0 0 0 5.7 -8.8 h 0.1 c 3 0 3.8 -6.3 3.8 -7.3 s 0.1 -4.7 -3 -4.7 C 53 4 30 0 22.3 6 c -5.4 0 -5.9 8 -3.9 16 c -3.1 0 -3 3.8 -3 4.7 s 0.7 7.3 3.8 7.3 c 1 3.6 2.3 6.9 4.7 9 v 1.2 c 0 2 0.5 5 -9.5 6.8 S 2 62 2 62 h 60 a 14.6 14.6 0 0 0 -11.6 -11 z"
-                stroke-miterlimit="10"
-                stroke-width="2"
-              ></path>
-            </svg>
-          </button>
-          <span
-            class="absolute -top-14 left-[50%] -translate-x-[50%] 
-  z-20 origin-left scale-0 px-3 rounded-lg border 
-  border-gray-300 bg-white py-2 text-sm font-bold
-  shadow-md transition-all duration-300 ease-in-out 
-  group-hover:scale-100"
+      <Grid>
+        {features.map((feature, index) => (
+          <Card
+            key={index}
+            custom={index}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={cardVariants}
+            gradient1={feature.gradient1}
+            gradient2={feature.gradient2}
+            whileHover={{ scale: 1.05 }}
           >
-            1. Sher Muhammad<span></span>
-          </span>
-        </div>
-        <div class="group">
-          <button>
-            <svg
-              class="w-32 aspect-square rounded-full hover:scale-125 duration-200 hover:stroke-blue-500"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 64 64"
-            >
-              <path
-                data-name="layer1"
-                d="M 50.4 51 C 40.5 49.1 40 46 40 44 v -1.2 a 18.9 18.9 0 0 0 5.7 -8.8 h 0.1 c 3 0 3.8 -6.3 3.8 -7.3 s 0.1 -4.7 -3 -4.7 C 53 4 30 0 22.3 6 c -5.4 0 -5.9 8 -3.9 16 c -3.1 0 -3 3.8 -3 4.7 s 0.7 7.3 3.8 7.3 c 1 3.6 2.3 6.9 4.7 9 v 1.2 c 0 2 0.5 5 -9.5 6.8 S 2 62 2 62 h 60 a 14.6 14.6 0 0 0 -11.6 -11 z"
-                stroke-miterlimit="10"
-                stroke-width="2"
-              ></path>
-            </svg>
-          </button>
-          <span
-            class="absolute -top-14 left-[50%] -translate-x-[50%] 
-  z-20 origin-left scale-0 px-3 rounded-lg border 
-  border-gray-300 bg-white py-2 text-sm font-bold
-  shadow-md transition-all duration-300 ease-in-out 
-  group-hover:scale-100"
-          >
-            2. Hamid Khan<span></span>
-          </span>
-        </div>
-        <div class="group">
-          <button>
-            <svg
-              class="w-32 aspect-square rounded-full hover:scale-125 duration-200 hover:stroke-blue-500"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 64 64"
-            >
-              <path
-                data-name="layer1"
-                d="M 50.4 51 C 40.5 49.1 40 46 40 44 v -1.2 a 18.9 18.9 0 0 0 5.7 -8.8 h 0.1 c 3 0 3.8 -6.3 3.8 -7.3 s 0.1 -4.7 -3 -4.7 C 53 4 30 0 22.3 6 c -5.4 0 -5.9 8 -3.9 16 c -3.1 0 -3 3.8 -3 4.7 s 0.7 7.3 3.8 7.3 c 1 3.6 2.3 6.9 4.7 9 v 1.2 c 0 2 0.5 5 -9.5 6.8 S 2 62 2 62 h 60 a 14.6 14.6 0 0 0 -11.6 -11 z"
-                stroke-miterlimit="10"
-                stroke-width="2"
-              ></path>
-            </svg>
-          </button>
-          <span
-            class="absolute -top-14 left-[50%] -translate-x-[50%] 
-  z-20 origin-left scale-0 px-3 rounded-lg border 
-  border-gray-300 bg-white py-2 text-sm font-bold
-  shadow-md transition-all duration-300 ease-in-out 
-  group-hover:scale-100"
-          >
-            3. Ahmed Khan<span></span>
-          </span>
-        </div>
-        <div class="group">
-          <button>
-            <svg
-              class="w-32 aspect-square rounded-full hover:scale-125 duration-200 hover:stroke-blue-500"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 64 64"
-            >
-              <path
-                data-name="layer1"
-                d="M 50.4 51 C 40.5 49.1 40 46 40 44 v -1.2 a 18.9 18.9 0 0 0 5.7 -8.8 h 0.1 c 3 0 3.8 -6.3 3.8 -7.3 s 0.1 -4.7 -3 -4.7 C 53 4 30 0 22.3 6 c -5.4 0 -5.9 8 -3.9 16 c -3.1 0 -3 3.8 -3 4.7 s 0.7 7.3 3.8 7.3 c 1 3.6 2.3 6.9 4.7 9 v 1.2 c 0 2 0.5 5 -9.5 6.8 S 2 62 2 62 h 60 a 14.6 14.6 0 0 0 -11.6 -11 z"
-                stroke-miterlimit="10"
-                stroke-width="2"
-              ></path>
-            </svg>
-          </button>
-          <span
-            class="absolute -top-14 left-[50%] -translate-x-[50%] 
-  z-20 origin-left scale-0 px-3 rounded-lg border 
-  border-gray-300 bg-white py-2 text-sm font-bold
-  shadow-md transition-all duration-300 ease-in-out 
-  group-hover:scale-100"
-          >
-            4. Sumaira<span></span>
-          </span>
-        </div>
-        <div class="group">
-          <button>
-            <svg
-              class="w-32 aspect-square rounded-full hover:scale-125 duration-200 hover:stroke-blue-500"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 64 64"
-            >
-              <path
-                data-name="layer1"
-                d="M 50.4 51 C 40.5 49.1 40 46 40 44 v -1.2 a 18.9 18.9 0 0 0 5.7 -8.8 h 0.1 c 3 0 3.8 -6.3 3.8 -7.3 s 0.1 -4.7 -3 -4.7 C 53 4 30 0 22.3 6 c -5.4 0 -5.9 8 -3.9 16 c -3.1 0 -3 3.8 -3 4.7 s 0.7 7.3 3.8 7.3 c 1 3.6 2.3 6.9 4.7 9 v 1.2 c 0 2 0.5 5 -9.5 6.8 S 2 62 2 62 h 60 a 14.6 14.6 0 0 0 -11.6 -11 z"
-                stroke-miterlimit="10"
-                stroke-width="2"
-              ></path>
-            </svg>
-          </button>
-          <span
-            class="absolute -top-14 left-[50%] -translate-x-[50%] 
-  z-20 origin-left scale-0 px-3 rounded-lg border 
-  border-gray-300 bg-white py-2 text-sm font-bold
-  shadow-md transition-all duration-300 ease-in-out 
-  group-hover:scale-100"
-          >
-            5. Arwa<span></span>
-          </span>
-        </div>
-        <div class="group">
-          <button>
-            <svg
-              class="w-32 aspect-square rounded-full hover:scale-125 duration-200 hover:stroke-blue-500"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 64 64"
-            >
-              <path
-                data-name="layer1"
-                d="M 50.4 51 C 40.5 49.1 40 46 40 44 v -1.2 a 18.9 18.9 0 0 0 5.7 -8.8 h 0.1 c 3 0 3.8 -6.3 3.8 -7.3 s 0.1 -4.7 -3 -4.7 C 53 4 30 0 22.3 6 c -5.4 0 -5.9 8 -3.9 16 c -3.1 0 -3 3.8 -3 4.7 s 0.7 7.3 3.8 7.3 c 1 3.6 2.3 6.9 4.7 9 v 1.2 c 0 2 0.5 5 -9.5 6.8 S 2 62 2 62 h 60 a 14.6 14.6 0 0 0 -11.6 -11 z"
-                stroke-miterlimit="10"
-                stroke-width="2"
-              ></path>
-            </svg>
-          </button>
-          <span
-            class="absolute -top-14 left-[50%] -translate-x-[50%] 
-  z-20 origin-left scale-0 px-3 rounded-lg border 
-  border-gray-300 bg-white py-2 text-sm font-bold
-  shadow-md transition-all duration-300 ease-in-out 
-  group-hover:scale-100"
-          >
-            6. Uzair Khan <span></span>
-          </span>
-        </div>
-      </div>
+            <IconWrapper>
+              <span style={{ fontSize: '2rem' }}>{feature.icon}</span>
+            </IconWrapper>
+            <CardTitle>{feature.title}</CardTitle>
+            <CardDescription>{feature.description}</CardDescription>
+          </Card>
+        ))}
+      </Grid>
     </Section>
   );
 };
