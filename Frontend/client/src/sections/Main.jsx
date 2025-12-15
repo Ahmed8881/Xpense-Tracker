@@ -12,6 +12,10 @@ import Footer from "./Footer";
 import Home from "./Home";
 import Marquee from "./Marquee";
 import NewArrival from "./NewArrival";
+import HowItWorks from "./HowItWorks";
+import Testimonials from "./Testimonials";
+import Stats from "./Stats";
+import CallToAction from "./CallToAction";
 import GlobalStyles from "../styles/GlobalStyles";
 import { dark } from "../styles/Themes";
 import KnowUs from "./KnowUs";
@@ -62,6 +66,10 @@ function Main() {
               <KnowUs key="KnowUs" />
               <Marquee key="marquee" />
               <NewArrival key="new arrival" />
+              <HowItWorks key="how-it-works" />
+              <Stats key="stats" />
+              <Testimonials key="testimonials" />
+              <CallToAction key="cta" />
               <Footer key="Footer" />
             </AnimatePresence>
           </main>
