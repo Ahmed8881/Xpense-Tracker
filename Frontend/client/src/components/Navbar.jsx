@@ -148,14 +148,7 @@ const Navbar = () => {
           <Link to="/">Know us</Link>
         </Item>
 
-        <Item
-          whileHover={{ scale: 1.1, y: -5 }}
-          whileTap={{ scale: 0.9, y: 0 }}
-          onClick={() => handleScroll('.new-arrival')}
-        >
-          {' '}
-          <Link to="/">My Team</Link>
-        </Item>
+
         <Item
           whileHover={{ scale: 1.1, y: -5 }}
           whileTap={{ scale: 0.9, y: 0 }}

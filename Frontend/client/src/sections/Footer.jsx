@@ -157,9 +157,7 @@ const Footer = () => {
           <li aria-hidden="true" onClick={() => handleScroll("#KnowUs")}>
              Know us
           </li>
-          <li aria-hidden="true" onClick={() => handleScroll(".new-arrival")}>
-           My team
-          </li>
+       
           <li>
             <Link to={'/login'} >
              Get Start
@@ -181,7 +179,7 @@ const Footer = () => {
           >
             Made with &hearts; by{" "}
             <a
-              href="https://www.youtube.com/channel/UCwZyXoR5UzZMXx8JJwexi8A"
+              href=""
               target={"_blank"}
               rel="dofollow noreferrer"
             >
